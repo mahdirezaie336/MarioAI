@@ -23,7 +23,7 @@ class Display:
         pygame.init()
         sw, sh = Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT
         self.screen = pygame.display.set_mode((sw, sh))
-        self.screen.fill(Consts.BACKGROUND)
+        self.screen.fill(Consts.BACKGROUND_COLOR)
 
         # Setting cell size and other sizes
         w, h = map_object.get_width(), map_object.get_height()

@@ -10,7 +10,7 @@ class Consts:
     # PyGame Window Features
     SCREEN_WIDTH = 640
     SCREEN_HEIGHT = 480
-    BACKGROUND = 198, 163, 138
+    BACKGROUND_COLOR = 198, 163, 138
     SCREEN_MARGIN_SIZE = 40
     CELL_COLOR = 131, 60, 11
     BLOCK_COLOR = 32, 32, 32
