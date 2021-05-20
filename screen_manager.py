@@ -5,19 +5,20 @@ import sys
 from items import *
 
 from map import Map
-#from state import State
+
+
+# from state import State
 
 
 class Display:
-
     display_thread: threading.Thread
-    images = {'G': Goomba,
-              'M': Mario,
-              '_': Item,
-              'L': Lakitu}
+    items = {'G': Goomba,
+             'M': Mario,
+             '_': Item,
+             'L': Lakitu}
 
     def __init__(self, map_object: Map):
-        self.map_array = map_object.arr
+        self.map_object = map_object
 
         # PyGame part
         pygame.init()
@@ -42,16 +43,6 @@ class Display:
         # Threading part
         self.display_thread = None
 
-        # Loading images
-        self.butter_image = pygame.image.load(Consts.BUTTER_IMAGE)
-        self.butter_image = pygame.transform.scale(self.butter_image, (cell_size, cell_size))
-        self.robot_image = pygame.image.load(Consts.ROBOT_IMAGE)
-        self.robot_image = pygame.transform.scale(self.robot_image, (cell_size, cell_size))
-        self.x_image = pygame.image.load(Consts.X_IMAGE)
-        self.x_image = pygame.transform.scale(self.x_image, (cell_size, cell_size))
-        self.mark_image = pygame.image.load(Consts.MARK_IMAGE)
-        self.mark_image = pygame.transform.scale(self.mark_image, (cell_size, cell_size))
-
         self.draw_cells()
         pygame.display.update()
 
@@ -65,9 +56,9 @@ class Display:
             self.draw_in_position(mark[0], mark[1], self.mark_image)
         pygame.display.update()
 
-    def draw_cells(self):
+    def draw_cells(self, map_object: Map):
         sw, sh = Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT
-        w, h = self._w, self._h
+        w, h = self.map_object.get_width(), self.map_object.get_height()
         rect_width, rect_height = self.rect_width, self.rect_height
         cell_size = self.cell_size
 
@@ -78,7 +69,7 @@ class Display:
             for i in range(w):
                 x = init_x + i * cell_size
                 y = init_y + j * cell_size
-                if self.map_array[j][i] == 'x':
+                if self.map_object.[j][i] == 'x':
                     color = Consts.BLOCK_COLOR
                 else:
                     color = Display.darker(Consts.CELL_COLOR, int(self.map_array[j][i]))
@@ -108,7 +99,7 @@ class Display:
                         sys.exit(0)
 
                 pygame.display.update()
-                pygame.time.wait(int(1000/Consts.FPS))
+                pygame.time.wait(int(1000 / Consts.FPS))
 
         # Starting thread
         self.display_thread = threading.Thread(name='Display', target=infinite_loop)

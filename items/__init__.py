@@ -27,6 +27,7 @@ class Mario(Item):
 
     def __init__(self, size, position):
         super().__init__(size, position)
+        c = Consts.C
         self.image = pygame.transform.scale(self.image, size)
 
 
