@@ -69,7 +69,7 @@ class Display:
             for i in range(w):
                 x = init_x + i * cell_size
                 y = init_y + j * cell_size
-                if self.map_object.[j][i] == 'x':
+                if self.map_object.get_array()[j][i] == 'x':
                     color = Consts.BLOCK_COLOR
                 else:
                     color = Display.darker(Consts.CELL_COLOR, int(self.map_array[j][i]))
