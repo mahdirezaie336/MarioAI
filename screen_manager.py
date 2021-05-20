@@ -2,22 +2,22 @@ import pygame
 from constants import Consts
 import threading
 import sys
+from items import *
 
 from map import Map
-from state import State
+#from state import State
 
 
 class Display:
 
     display_thread: threading.Thread
+    images = {'G': Goomba,
+              'M': Mario,
+              '_': Item,
+              'L': Lakitu}
 
     def __init__(self, map_object: Map):
-        w, h = map_object.w, map_object.h
-        self.map_array = map_object.map
-        self.w = w
-        self.h = h
-        self.points = map_object.points
-        self.marks = []                      # Used in debugging
+        self.map_array = map_object.arr
 
         # PyGame part
         pygame.init()
@@ -26,6 +26,7 @@ class Display:
         self.screen.fill(Consts.BACKGROUND)
 
         # Setting cell size and other sizes
+        w, h = map_object.get_width(), map_object.get_height()
         if w / h > sw / sh:
             rect_width = sw - 2 * Consts.SCREEN_MARGIN_SIZE
             cell_size = int(rect_width / w)
@@ -66,7 +67,7 @@ class Display:
 
     def draw_cells(self):
         sw, sh = Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT
-        w, h = self.w, self.h
+        w, h = self._w, self._h
         rect_width, rect_height = self.rect_width, self.rect_height
         cell_size = self.cell_size
 

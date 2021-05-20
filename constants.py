@@ -14,10 +14,11 @@ class Consts:
     SCREEN_MARGIN_SIZE = 40
     CELL_COLOR = 131, 60, 11
     BLOCK_COLOR = 32, 32, 32
-    BUTTER_IMAGE = './images/butter.png'
-    ROBOT_IMAGE = './images/robot.png'
-    X_IMAGE = './images/x.png'
-    MARK_IMAGE = './images/mark.png'
+    GOOMBA_IMAGE = './images/goomba.png'
+    MARIO_IMAGE = './images/goomba.png'
+    LAKITU_IMAGE = './images/robot.png'
+    MUSHROOM_IMAGE = './images/x.png'
+    FLAG_IMAGE = './images/mark.png'
 
     # Times
     STEP_TIME = 0.4
