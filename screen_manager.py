@@ -69,24 +69,23 @@ class Display:
             for i in range(w):
                 x = init_x + i * cell_size
                 y = init_y + j * cell_size
-                if self.map_object.get_array()[j][i] == 'x':
-                    color = Consts.BLOCK_COLOR
-                else:
-                    color = Display.darker(Consts.CELL_COLOR, int(self.map_array[j][i]))
-                # Drawing Rectangles
-                pygame.draw.rect(self.screen, color, (x, y, cell_size, cell_size), 0)
-                pygame.draw.rect(self.screen, (0, 0, 0), (x, y, cell_size, cell_size), 1)
+                item = self.items[self.map_object.get_array()[j][i]]
+                if item is not None:
+                    self.draw_in_position(y, x, item)
+                    # Drawing Rectangles
+                    pygame.draw.rect(self.screen, color, (x, y, cell_size, cell_size), 0)
+                    pygame.draw.rect(self.screen, (0, 0, 0), (x, y, cell_size, cell_size), 1)
 
         # Drawing X Points
         for p in self.points:
             self.draw_in_position(p[0], p[1], self.x_image)
 
-    def draw_in_position(self, y: int, x: int, image):
+    def draw_in_position(self, y: int, x: int, item: Item):
         init_y = (Consts.SCREEN_HEIGHT - self.rect_height) / 2
         init_x = (Consts.SCREEN_WIDTH - self.rect_width) / 2
         pos_x = init_x + x * self.cell_size
         pos_y = init_y + y * self.cell_size
-        self.screen.blit(image, (pos_x, pos_y))
+        self.screen.blit(item.get_image(), (pos_x, pos_y))
 
     def begin_display(self):
 
