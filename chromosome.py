@@ -110,7 +110,7 @@ class Chromosome:
 
         # If we win
         if largest_path == 0:
-            largest_path = len(self.__string) * 1.3
+            largest_path = len(self.__string) * 1.25
 
         return largest_path + extra_fitness
 

@@ -1,12 +1,13 @@
 import random
+import matplotlib.pyplot as plt
 
 from chromosome import Chromosome
 
 
-map_file = './maps/level9.txt'
+map_file = './maps/level1.txt'
 init_size = 200
 mutate_probability = 0.3
-min_difference = 0.05
+min_difference = 0.005
 
 
 def read_map(address: str) -> str:
@@ -47,6 +48,8 @@ def main():
     map_object = read_map(map_file)
     Chromosome.set_map(map_object)
     all_generations = []
+    mins = []
+    maxs = []
     averages = []
 
     # Phase 1: Generate init population
@@ -55,13 +58,15 @@ def main():
     current_generation = init_generation
     prev_avg = 0
     curr_avg = avg
-    averages.append(avg)
+    # averages.append(avg)
 
     while curr_avg - prev_avg > min_difference or curr_avg - prev_avg < -1 * min_difference:
 
         # Phase 2, 3: selection
         selected = select(current_generation)
         all_generations.append(current_generation)                # Keeping all generations
+        maxs.append(current_generation[-1].get_fitness())
+        mins.append(current_generation[0].get_fitness())
         random.shuffle(selected)
 
         # Phase 4: Create next generation
@@ -81,7 +86,16 @@ def main():
         averages.append(curr_avg)
         print(prev_avg, curr_avg)
 
+    print('Latest Solution:')
     print(all_generations[-1][-1])
+
+    # Plotting
+    indices = list(range(len(all_generations)))
+    line_min, = plt.plot(indices, mins, 'm')
+    line_max, = plt.plot(indices, maxs, 'y')
+    line_avg, = plt.plot(indices, averages, 'c')
+    plt.legend([line_min, line_max, line_avg], ['Minimum', 'Maximum', 'Average'])
+    plt.show()
 
 
 main()
