@@ -3,7 +3,7 @@ import random
 from chromosome import Chromosome
 
 
-map_file = './map.txt'
+map_file = './maps/map.txt'
 init_size = 200
 mutate_probability = 0.3
 minimum_average_difference = 0.2
