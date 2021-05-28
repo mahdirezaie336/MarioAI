@@ -6,6 +6,7 @@ from chromosome import Chromosome
 map_file = './map.txt'
 init_size = 200
 mutate_probability = 0.3
+minimum_average_difference = 0.2
 
 
 def read_map(address: str) -> str:
@@ -49,14 +50,16 @@ def main():
 
     # Phase 1: Generate init population
     init_generation, avg = random_init(len(map_object))
-    all_generations.append(init_generation)
 
     current_generation = init_generation
+    prev_avg = 0
+    curr_avg = avg
 
-    for j in range(20):
+    while curr_avg - prev_avg > minimum_average_difference:
 
         # Phase 2, 3: selection
         selected = select(current_generation)
+        all_generations.append(selected)                # Keeping all generations
         random.shuffle(selected)
 
         # Phase 4: Create next generation
@@ -70,8 +73,10 @@ def main():
             if random.random() <= mutate_probability:
                 i.mutate()
 
-        print(get_average(current_generation), get_average(next_generation))
+        prev_avg = curr_avg
+        curr_avg = get_average(next_generation)
         current_generation = next_generation
+        print(prev_avg, curr_avg)
 
 
 main()
