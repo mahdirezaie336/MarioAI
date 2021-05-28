@@ -14,7 +14,7 @@ def read_map(address: str) -> str:
     return data
 
 
-def random_init(chromosome_length: int) -> (list[Chromosome], int):
+def random_init(chromosome_length: int) -> (list[Chromosome], float):
     res = []
     sum_ = 0
     for i in range(init_size):
@@ -49,6 +49,9 @@ def main():
     init_generation, avg = random_init(len(map_object))
 
     # Phase 2: selection
+    selected = select(init_generation)
+    random.shuffle(selected)
+
 
 
 
