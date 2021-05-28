@@ -47,6 +47,7 @@ def main():
     map_object = read_map(map_file)
     Chromosome.set_map(map_object)
     all_generations = []
+    averages = []
 
     # Phase 1: Generate init population
     init_generation, avg = random_init(len(map_object))
@@ -54,12 +55,13 @@ def main():
     current_generation = init_generation
     prev_avg = 0
     curr_avg = avg
+    averages.append(avg)
 
     while curr_avg - prev_avg > minimum_average_difference:
 
         # Phase 2, 3: selection
         selected = select(current_generation)
-        all_generations.append(selected)                # Keeping all generations
+        all_generations.append(current_generation)                # Keeping all generations
         random.shuffle(selected)
 
         # Phase 4: Create next generation
@@ -76,7 +78,10 @@ def main():
         prev_avg = curr_avg
         curr_avg = get_average(next_generation)
         current_generation = next_generation
+        averages.append(curr_avg)
         print(prev_avg, curr_avg)
+
+    print(all_generations[-1][-1])
 
 
 main()

@@ -104,7 +104,7 @@ class Chromosome:
 
         # If we win
         if largest_path == 0:
-            largest_path = 15
+            largest_path = len(self.__string) + 5
 
         return largest_path + extra_fitness
 
