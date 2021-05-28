@@ -1,4 +1,5 @@
 import random
+
 from chromosome import Chromosome
 
 
@@ -26,14 +27,29 @@ def random_init(chromosome_length: int) -> (list[Chromosome], int):
     return res, sum_/init_size
 
 
+def get_average(generation: list[Chromosome]) -> float:
+    sum_ = 0
+    for g in generation:
+        sum_ += g.get_fitness()
+    return sum_/init_size
+
+
+def select(generation: list[Chromosome]) -> list[Chromosome]:
+    generation.sort()
+    result = generation[init_size//2:init_size]
+    result.extend(generation[init_size//2:init_size])
+    return result
+
+
 def main():
     map_object = read_map(map_file)
     Chromosome.set_map(map_object)
+
+    # Phase 1: Generate init population
     init_generation, avg = random_init(len(map_object))
 
-    for i in init_generation:
-        print(i)
-    print(avg)
+    # Phase 2: selection
+
 
 
 main()
