@@ -45,6 +45,13 @@ class Chromosome:
         st2 = other.__string[:a] + self.__string[a:b] + other.__string[b:]
         return [Chromosome(st1), Chromosome(st2)]
 
+    def mutate(self):
+        i = random.randint(0, len(self.__string) - 1)
+        while (new_value := str(random.randint(0, 2))) == self.__string[i]:
+            continue
+        st = self.__string[:i] + new_value + self.__string[i+1:]
+        self.__string = st
+
     def __calculate_fitness(self):
 
         chromosome = self.__string

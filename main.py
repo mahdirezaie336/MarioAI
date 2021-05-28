@@ -52,7 +52,16 @@ def main():
     selected = select(init_generation)
     random.shuffle(selected)
 
+    # Phase 3: Create next generation
+    next_generation = []
+    for i in range(0, init_size, 2):
+        children = init_generation[i].create_children(init_generation[i+1])
+        next_generation.extend(children)
 
+    for i in next_generation:
+        print(i)
+
+    for
 
 
 main()
