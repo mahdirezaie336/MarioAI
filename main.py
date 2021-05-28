@@ -5,6 +5,7 @@ from chromosome import Chromosome
 
 map_file = './map.txt'
 init_size = 200
+mutate_probability = 0.3
 
 
 def read_map(address: str) -> str:
@@ -44,24 +45,33 @@ def select(generation: list[Chromosome]) -> list[Chromosome]:
 def main():
     map_object = read_map(map_file)
     Chromosome.set_map(map_object)
+    all_generations = []
 
     # Phase 1: Generate init population
     init_generation, avg = random_init(len(map_object))
+    all_generations.append(init_generation)
 
-    # Phase 2: selection
-    selected = select(init_generation)
-    random.shuffle(selected)
+    current_generation = init_generation
 
-    # Phase 3: Create next generation
-    next_generation = []
-    for i in range(0, init_size, 2):
-        children = init_generation[i].create_children(init_generation[i+1])
-        next_generation.extend(children)
+    for j in range(20):
 
-    for i in next_generation:
-        print(i)
+        # Phase 2, 3: selection
+        selected = select(current_generation)
+        random.shuffle(selected)
 
-    for
+        # Phase 4: Create next generation
+        next_generation = []
+        for i in range(0, init_size, 2):
+            children = selected[i].create_children(selected[i+1])
+            next_generation.extend(children)
+
+        # Phase 5: Mutate
+        for i in next_generation:
+            if random.random() <= mutate_probability:
+                i.mutate()
+
+        print(get_average(current_generation), get_average(next_generation))
+        current_generation = next_generation
 
 
 main()
