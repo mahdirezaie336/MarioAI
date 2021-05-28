@@ -3,10 +3,10 @@ import random
 from chromosome import Chromosome
 
 
-map_file = './maps/map.txt'
+map_file = './maps/level3.txt'
 init_size = 200
 mutate_probability = 0.3
-minimum_average_difference = 0.2
+minimum_average_difference = 0.005
 
 
 def read_map(address: str) -> str:
