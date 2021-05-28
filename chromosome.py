@@ -3,34 +3,38 @@ class Chromosome:
     __map = ''
 
     def __init__(self, string):
-        self.string = string
+        self.__string = string
+        self.__fitness = self.__calculate_fitness()
 
     def __gt__(self, other):
         if not isinstance(other, Chromosome):
             raise ValueError('Operand is not type of Chromosome.')
-        return self.calculate_fitness() > other.calculate_fitness()
+        return self.get_fitness() > other.get_fitness()
 
     def __lt__(self, other):
         if not isinstance(other, Chromosome):
             raise ValueError('Operand is not type of Chromosome.')
-        return self.calculate_fitness() < other.calculate_fitness()
+        return self.get_fitness() < other.get_fitness()
 
     def __ge__(self, other):
         if not isinstance(other, Chromosome):
             raise TypeError('Operand is not type of Chromosome.')
-        return self.calculate_fitness() >= other.calculate_fitness()
+        return self.get_fitness() >= other.get_fitness()
 
     def __le__(self, other):
         if not isinstance(other, Chromosome):
             raise ValueError('Operand is not type of Chromosome.')
-        return self.calculate_fitness() <= other.calculate_fitness()
+        return self.get_fitness() <= other.get_fitness()
 
     def __str__(self):
-        return '{}   {}   {}'.format(self.string, Chromosome.__map, self.calculate_fitness())
+        return '{}   {}   {}'.format(self.__string, Chromosome.__map, self.get_fitness())
 
-    def calculate_fitness(self):
+    def get_fitness(self):
+        return self.__fitness
 
-        chromosome = self.string
+    def __calculate_fitness(self):
+
+        chromosome = self.__string
         map_object = Chromosome.__map
         extra_fitness = 0
         largest_path = 0

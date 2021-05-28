@@ -4,7 +4,6 @@ from chromosome import Chromosome
 
 map_file = './map.txt'
 init_size = 200
-map_object = ''
 
 
 def read_map(address: str) -> str:
@@ -21,19 +20,20 @@ def random_init(chromosome_length: int) -> (list[Chromosome], int):
         chromosome = []
         for j in range(chromosome_length):
             chromosome.append(str(random.randint(0, 2)))
-        Chromosome(''.join(chromosome))
-        res.append()
-    return res
+        c = Chromosome(''.join(chromosome))
+        sum_ += c.get_fitness()
+        res.append(c)
+    return res, sum_/init_size
 
 
 def main():
-    global map_object
     map_object = read_map(map_file)
     Chromosome.set_map(map_object)
-    init_generation = random_init(len(map_object))
+    init_generation, avg = random_init(len(map_object))
 
     for i in init_generation:
         print(i)
+    print(avg)
 
 
 main()
