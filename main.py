@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 from chromosome import Chromosome
 
 
-map_file = './maps/level1.txt'
+map_file = './maps/level5.txt'
 init_size = 200
 mutate_probability = 0.3
-min_difference = 0.005
+min_difference = 0.0005
 
 
 def read_map(address: str) -> str:
@@ -72,7 +72,8 @@ def main():
         # Phase 4: Create next generation
         next_generation = []
         for i in range(0, init_size, 2):
-            children = selected[i].create_children(selected[i+1])
+            a, b = random.randint(0, init_size - 1), random.randint(0, init_size - 1)
+            children = selected[i].create_children(selected[i+1], a, b)
             next_generation.extend(children)
 
         # Phase 5: Mutate

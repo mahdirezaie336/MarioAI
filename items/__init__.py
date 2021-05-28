@@ -46,3 +46,12 @@ class Goomba(Item):
     def __init__(self, size, position):
         super().__init__(size, position)
         self.image = pygame.transform.scale(self.image, size)
+
+
+class Mushroom(Item):
+
+    image = pygame.image.load(Consts.MUSHROOM_IMAGE)
+
+    def __init__(self, size, position):
+        super().__init__(size, position)
+        self.image = pygame.transform.scale(self.image, size)

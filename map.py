@@ -1,7 +1,7 @@
 class Map:
 
-    def __init__(self, arr: list[list[str]]):
-        self.__arr = arr
+    def __init__(self, arr: str):
+        self.__string = arr
         self.__h, self.__w = len(arr), len(arr[0])
 
     def get_width(self) -> int:
@@ -10,5 +10,5 @@ class Map:
     def get_height(self) -> int:
         return self.__h
 
-    def get_array(self) -> list[list[str]]:
-        return self.__arr
+    def get_array(self) -> str:
+        return self.__string

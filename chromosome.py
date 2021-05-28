@@ -40,8 +40,7 @@ class Chromosome:
     def get_string(self):
         return self.__string
 
-    def create_children(self, other: 'Chromosome') -> list['Chromosome', 'Chromosome']:
-        a, b = random.randint(0, len(self.__string) - 1), random.randint(0, len(self.__string) - 1)
+    def create_children(self, other: 'Chromosome', a: int, b: int) -> list['Chromosome', 'Chromosome']:
         a, b = min(a, b), max(a, b)
         st1 = self.__string[:a] + other.__string[a:b] + self.__string[b:]
         st2 = other.__string[:a] + self.__string[a:b] + other.__string[b:]
