@@ -17,7 +17,7 @@ class Chromosome:
 
     def __ge__(self, other):
         if not isinstance(other, Chromosome):
-            raise ValueError('Operand is not type of Chromosome.')
+            raise TypeError('Operand is not type of Chromosome.')
         return self.calculate_fitness() >= other.calculate_fitness()
 
     def __le__(self, other):
@@ -26,7 +26,7 @@ class Chromosome:
         return self.calculate_fitness() <= other.calculate_fitness()
 
     def __str__(self):
-        return '{} - {}'.format(self.string, Chromosome.__map)
+        return '{}   {}   {}'.format(self.string, Chromosome.__map, self.calculate_fitness())
 
     def calculate_fitness(self):
 
