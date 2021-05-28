@@ -3,10 +3,10 @@ import random
 from chromosome import Chromosome
 
 
-map_file = './maps/level3.txt'
+map_file = './maps/level9.txt'
 init_size = 200
 mutate_probability = 0.3
-minimum_average_difference = 0.005
+min_difference = 0.05
 
 
 def read_map(address: str) -> str:
@@ -57,7 +57,7 @@ def main():
     curr_avg = avg
     averages.append(avg)
 
-    while curr_avg - prev_avg > minimum_average_difference:
+    while curr_avg - prev_avg > min_difference or curr_avg - prev_avg < -1 * min_difference:
 
         # Phase 2, 3: selection
         selected = select(current_generation)

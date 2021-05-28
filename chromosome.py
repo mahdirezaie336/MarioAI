@@ -8,6 +8,7 @@ class Chromosome:
     def __init__(self, string):
         self.__string = string
         self.__fitness = self.__calculate_fitness()
+        self.__fails = False
 
     def __gt__(self, other):
         if not isinstance(other, Chromosome):
@@ -30,7 +31,8 @@ class Chromosome:
         return self.get_fitness() <= other.get_fitness()
 
     def __str__(self):
-        return '{}   {}   {}'.format(self.__string, Chromosome.__map, self.get_fitness())
+        st = '{}   {}   {}   {}'.format(self.__string, Chromosome.__map, self.get_fitness(), not self.__fails)
+        return st
 
     def get_fitness(self):
         return self.__fitness
@@ -51,6 +53,9 @@ class Chromosome:
             continue
         st = self.__string[:i] + new_value + self.__string[i+1:]
         self.__string = st
+
+    def check_fails(self) -> bool:
+        return self.__fails
 
     def __calculate_fitness(self):
 
@@ -81,11 +86,12 @@ class Chromosome:
                     if path_length > largest_path:
                         largest_path = path_length
                     path_length = 0
+                    self.__fails = True
                     continue
 
                 # If we do unnecessary jump
-                if next_item == '_' and decision != '0':
-                    extra_fitness += -0.5
+                if (next_item == '_' or next_item == 'M') and decision != '0':
+                    extra_fitness += -1
 
                 # If we eat mushroom
                 if next_item == 'M' and decision != '1':
@@ -104,7 +110,7 @@ class Chromosome:
 
         # If we win
         if largest_path == 0:
-            largest_path = len(self.__string) + 5
+            largest_path = len(self.__string) * 1.3
 
         return largest_path + extra_fitness
 
