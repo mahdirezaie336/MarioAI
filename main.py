@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 from chromosome import Chromosome
 
 
-map_file = './maps/level5.txt'
+map_file = './maps/level7.txt'
 init_size = 200
-mutate_probability = 0.3
+mutate_probability = 0.5
 min_difference = 0.0005
 
 

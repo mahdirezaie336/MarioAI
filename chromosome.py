@@ -4,6 +4,7 @@ import random
 class Chromosome:
 
     __map = ''
+    __winning_score = True
 
     def __init__(self, string):
         self.__string = string
@@ -109,10 +110,17 @@ class Chromosome:
 
         # If we win
         if largest_path == 0:
-            largest_path = len(self.__string) * 1.25
+            if Chromosome.__winning_score:
+                largest_path = len(self.__string) * 1.25
+            else:
+                largest_path = len(self.__string)
 
         return largest_path + extra_fitness
 
     @staticmethod
     def set_map(map_object: str):
         Chromosome.__map = map_object
+
+    @staticmethod
+    def set_winning_score(value: bool):
+        Chromosome.__winning_score = value

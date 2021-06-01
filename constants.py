@@ -14,7 +14,7 @@ class Consts:
     SCREEN_MARGIN_SIZE = 40
     CELL_COLOR = 131, 60, 11
     BLOCK_COLOR = 32, 32, 32
-    SKY_COLOR = 0, 0, 128
+    SKY_COLOR = 0, 132, 255
     GOOMBA_IMAGE = './images/goomba.png'
     MARIO_IMAGE = './images/mario.png'
     LAKITU_IMAGE = './images/lakitu.png'
