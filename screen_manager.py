@@ -43,7 +43,7 @@ class Display:
         goomba = pygame.image.load(Consts.GOOMBA_IMAGE)
         mushroom = pygame.image.load(Consts.MUSHROOM_IMAGE)
         lakitu = pygame.image.load(Consts.LAKITU_IMAGE)
-        mario = pygame.image.load(Consts.GOOMBA_IMAGE)
+        mario = pygame.image.load(Consts.MARIO_IMAGE)
         flag = pygame.image.load(Consts.FLAG_IMAGE)
         ground_surf = pygame.image.load(Consts.GROUND_SURF_IMAGE)
         ground = pygame.image.load(Consts.GROUND_IMAGE)
@@ -55,12 +55,9 @@ class Display:
                          'GS': pygame.transform.scale(ground_surf, (cell_size, cell_size)),
                          'F': pygame.transform.scale(flag, (cell_size, cell_size)),
                          }
+
         self.draw_cells()
         pygame.display.update()
-        while True:
-            pygame.display.update()
-            pygame.event.pump()
-            time.sleep(0.3)
 
     def draw_cells(self):
         sw, sh = Consts.SCREEN_WIDTH, Consts.SCREEN_HEIGHT
@@ -80,7 +77,10 @@ class Display:
                 if j == 2:
                     item_char = self.__map[i]
                     if item_char != '_':
-                        self.draw_in_position(j, i, self.__images[item_char])
+                        if item_char in ['L']:
+                            self.draw_in_position(j - 1, i, self.__images[item_char])
+                        else:
+                            self.draw_in_position(j, i, self.__images[item_char])
         j = 3
         for i in range(w):
                 x = init_x + i * cell_size
@@ -96,6 +96,39 @@ class Display:
         pos_y = init_y + y * self.cell_size
         self.screen.blit(image, (pos_x, pos_y))
 
+    def run_solution(self, solution: str):
+        for step in range(self.__w + 1):
+            self.draw_cells()
+            if solution[step] == '0':
+                self.draw_in_position(1, step, self.__images['X'])
+            elif solution[step] == '1':
+                self.draw_in_position(0, step, self.__images['X'])
+            elif solution[step] == '2':
+                self.draw_in_position(2, step, self.__images['X'])
 
 
-Display('__M_____')
+
+            time.sleep(0.3)
+
+    def begin_display(self):
+
+        def infinite_loop():
+            """ This is the function which includes the infinite loop for pygame pumping. """
+            while True:
+                events = pygame.event.get()
+                for event in events:
+                    if event.type == pygame.QUIT:
+                        sys.exit(0)
+
+                pygame.display.update()
+                pygame.time.wait(int(1000/Consts.FPS))
+
+        # Starting thread
+        display_thread = threading.Thread(name='Display', target=infinite_loop)
+        display_thread.setDaemon(False)
+        display_thread.start()
+
+
+d = Display('__G__L__')
+d.begin_display()
+d.run_solution('0101')

@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 
 from chromosome import Chromosome
 
-
 map_file = './maps/level7.txt'
-init_size = 200
-mutate_probability = 0.5
+init_size = 500
+mutate_probability = 0.3
 min_difference = 0.0005
+comb_length = 2
+consider_winning_score = False
 
 
 def read_map(address: str) -> str:
@@ -27,26 +28,27 @@ def random_init(chromosome_length: int) -> (list[Chromosome], float):
         c = Chromosome(''.join(chromosome))
         sum_ += c.get_fitness()
         res.append(c)
-    return res, sum_/init_size
+    return res, sum_ / init_size
 
 
 def get_average(generation: list[Chromosome]) -> float:
     sum_ = 0
     for g in generation:
         sum_ += g.get_fitness()
-    return sum_/init_size
+    return sum_ / init_size
 
 
 def select(generation: list[Chromosome]) -> list[Chromosome]:
     generation.sort()
-    result = generation[init_size//2:init_size]
-    result.extend(generation[init_size//2:init_size])
+    result = generation[init_size // 2:init_size]
+    result.extend(generation[init_size // 2:init_size])
     return result
 
 
 def main():
     map_object = read_map(map_file)
     Chromosome.set_map(map_object)
+    Chromosome.set_winning_score(consider_winning_score)
     all_generations = []
     mins = []
     maxs = []
@@ -64,7 +66,7 @@ def main():
 
         # Phase 2, 3: selection
         selected = select(current_generation)
-        all_generations.append(current_generation)                # Keeping all generations
+        all_generations.append(current_generation)  # Keeping all generations
         maxs.append(current_generation[-1].get_fitness())
         mins.append(current_generation[0].get_fitness())
         random.shuffle(selected)
@@ -72,8 +74,9 @@ def main():
         # Phase 4: Create next generation
         next_generation = []
         for i in range(0, init_size, 2):
-            a, b = random.randint(0, init_size - 1), random.randint(0, init_size - 1)
-            children = selected[i].create_children(selected[i+1], a, b)
+            length = random.randint(0, init_size - 1 - comb_length)
+            a, b = length, length + comb_length
+            children = selected[i].create_children(selected[i + 1], a, b)
             next_generation.extend(children)
 
         # Phase 5: Mutate
