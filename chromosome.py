@@ -58,7 +58,6 @@ class Chromosome:
         return self.__fails
 
     def __calculate_fitness(self):
-
         chromosome = self.__string
         map_object = Chromosome.__map
         extra_fitness = 0
@@ -73,6 +72,7 @@ class Chromosome:
             # Jumping twice which is undefined. We define it here
             if j != 0:
                 if is_on_air and chromosome[j - 1] == '1':
+                    extra_fitness += -1
                     decision = '0'
 
             path_length += 1
@@ -124,3 +124,8 @@ class Chromosome:
     @staticmethod
     def set_winning_score(value: bool):
         Chromosome.__winning_score = value
+
+
+#Chromosome.set_map('__G__G_L___')
+#c = Chromosome('11010010001')
+#print(c)

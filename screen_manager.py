@@ -112,6 +112,10 @@ class Display:
                     self.__map = self.__map[:step+1] + 'g' + self.__map[step+2:]
             elif solution[step] == '2':
                 self.draw_in_position(1, step, self.__images['x'])
+
+            if self.__map[step + 1] == 'M':
+                self.__map = self.__map[:step + 1] + '_' + self.__map[step + 2:]
+
             time.sleep(0.3)
         self.draw_cells()
         self.draw_in_position(1, self.__w - 1, self.__images['X'])
@@ -135,3 +139,7 @@ class Display:
         display_thread.setDaemon(False)
         display_thread.start()
 
+
+#d = Display('__G___L_')
+#d.begin_display()
+#d.run_solution('12000201')

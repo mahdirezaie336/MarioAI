@@ -2,8 +2,9 @@ import random
 import matplotlib.pyplot as plt
 
 from chromosome import Chromosome
+from screen_manager import Display
 
-map_file = './maps/level7.txt'
+map_file = './maps/level4.txt'
 init_size = 500
 mutate_probability = 0.3
 min_difference = 0.0005
@@ -100,6 +101,11 @@ def main():
     line_avg, = plt.plot(indices, averages, 'c')
     plt.legend([line_min, line_max, line_avg], ['Minimum', 'Maximum', 'Average'])
     plt.show()
+
+    # Display Game
+    display = Display(map_object)
+    display.begin_display()
+    display.run_solution(all_generations[-1][-1].get_string())
 
 
 main()
