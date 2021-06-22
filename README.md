@@ -3,7 +3,7 @@
 This is a practice of genetics algorithm in AI to Super Mario game.
 We get a level map and try to find the best solution for it.
 
-![GamePreview][images/preview.gif]
+![GamePreview](images/preview.gif)
 
 ## Map
 Maps must be like this:
