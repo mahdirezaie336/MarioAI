@@ -4,12 +4,6 @@ import pygame
 from constants import Consts
 import threading
 import sys
-from items import *
-
-from map import Map
-
-
-# from state import State
 
 
 class Display:

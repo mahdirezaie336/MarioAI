@@ -1,0 +1,2 @@
+matplotlib~=3.3.4
+pygame~=2.0.1
