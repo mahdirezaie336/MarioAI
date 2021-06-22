@@ -102,16 +102,22 @@ class Display:
         self.screen.blit(image, (pos_x, pos_y))
 
     def run_solution(self, solution: str):
+        solution = '0'+solution
         for step in range(self.__w - 1):
             self.draw_cells()
-            if solution[step] == '0':
-                self.draw_in_position(1, step, self.__images['X'])
-            elif solution[step] == '1':
-                self.draw_in_position(0, step, self.__images['X'])
+            if solution[step] == '1':
+                if step != 0 and solution[step-1] == '1':
+                    self.draw_in_position(1, step, self.__images['X'])
+                else:
+                    self.draw_in_position(0, step, self.__images['X'])
+
                 if self.__map[step+1] == 'G':
                     self.__map = self.__map[:step+1] + 'g' + self.__map[step+2:]
             elif solution[step] == '2':
                 self.draw_in_position(1, step, self.__images['x'])
+            else:
+                self.draw_in_position(1, step, self.__images['X'])
+
 
             if self.__map[step + 1] == 'M':
                 self.__map = self.__map[:step + 1] + '_' + self.__map[step + 2:]

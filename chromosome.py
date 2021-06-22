@@ -93,13 +93,16 @@ class Chromosome:
                 if (next_item == '_' or next_item == 'M') and decision != '0':
                     extra_fitness += -1
 
+                if decision == '1' or decision == '2':
+                    extra_fitness += -0.5
+
                 # If we eat mushroom
                 if next_item == 'M' and decision != '1':
-                    extra_fitness += 2
+                    extra_fitness += 3
 
                 # If we kill a Goomba
                 if j != len(chromosome) - 2 and map_object[j + 2] == 'G' and decision == '1':
-                    extra_fitness += 2
+                    extra_fitness += 3
 
             else:
                 # If we jump on flag
