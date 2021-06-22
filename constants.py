@@ -8,8 +8,8 @@ class Consts:
     LAST_K = 50
 
     # PyGame Window Features
-    SCREEN_WIDTH = 640
-    SCREEN_HEIGHT = 480
+    SCREEN_WIDTH = 800
+    SCREEN_HEIGHT = 600
     BACKGROUND_COLOR = 198, 163, 138
     SCREEN_MARGIN_SIZE = 40
     CELL_COLOR = 131, 60, 11

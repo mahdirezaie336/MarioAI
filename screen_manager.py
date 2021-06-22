@@ -118,13 +118,13 @@ class Display:
             else:
                 self.draw_in_position(1, step, self.__images['X'])
 
-
             if self.__map[step + 1] == 'M':
                 self.__map = self.__map[:step + 1] + '_' + self.__map[step + 2:]
 
             time.sleep(0.3)
         self.draw_cells()
         self.draw_in_position(1, self.__w - 1, self.__images['X'])
+        pygame.image.save(self.screen, './images/' + str(self.__w - 1) + '.png')
 
 
     def begin_display(self):
