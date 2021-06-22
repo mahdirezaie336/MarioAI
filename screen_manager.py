@@ -41,16 +41,20 @@ class Display:
 
         # Loading images
         goomba = pygame.image.load(Consts.GOOMBA_IMAGE)
+        goomba_pressed = pygame.image.load(Consts.GOOMBA_PRESSED_IMAGE)
         mushroom = pygame.image.load(Consts.MUSHROOM_IMAGE)
         lakitu = pygame.image.load(Consts.LAKITU_IMAGE)
         mario = pygame.image.load(Consts.MARIO_IMAGE)
+        mario_sit = pygame.image.load(Consts.MARIO_SIT_IMAGE)
         flag = pygame.image.load(Consts.FLAG_IMAGE)
         ground_surf = pygame.image.load(Consts.GROUND_SURF_IMAGE)
         ground = pygame.image.load(Consts.GROUND_IMAGE)
         self.__images = {'G': pygame.transform.scale(goomba, (cell_size, cell_size)),
+                         'g': pygame.transform.scale(goomba_pressed, (cell_size, cell_size)),
                          'M': pygame.transform.scale(mushroom, (cell_size, cell_size)),
                          'L': pygame.transform.scale(lakitu, (cell_size, cell_size)),
                          'X': pygame.transform.scale(mario, (cell_size, 2*cell_size)),
+                         'x': pygame.transform.scale(mario_sit, (cell_size, 2*cell_size)),
                          'GR': pygame.transform.scale(ground, (cell_size, cell_size)),
                          'GS': pygame.transform.scale(ground_surf, (cell_size, cell_size)),
                          'F': pygame.transform.scale(flag, (cell_size, cell_size)),
@@ -80,6 +84,7 @@ class Display:
                         if item_char in ['L']:
                             self.draw_in_position(j - 1, i, self.__images[item_char])
                         else:
+
                             self.draw_in_position(j, i, self.__images[item_char])
         j = 3
         for i in range(w):
@@ -97,18 +102,20 @@ class Display:
         self.screen.blit(image, (pos_x, pos_y))
 
     def run_solution(self, solution: str):
-        for step in range(self.__w + 1):
+        for step in range(self.__w - 1):
             self.draw_cells()
             if solution[step] == '0':
                 self.draw_in_position(1, step, self.__images['X'])
             elif solution[step] == '1':
                 self.draw_in_position(0, step, self.__images['X'])
+                if self.__map[step+1] == 'G':
+                    self.__map = self.__map[:step+1] + 'g' + self.__map[step+2:]
             elif solution[step] == '2':
-                self.draw_in_position(2, step, self.__images['X'])
-
-
-
+                self.draw_in_position(1, step, self.__images['x'])
             time.sleep(0.3)
+        self.draw_cells()
+        self.draw_in_position(1, self.__w - 1, self.__images['X'])
+
 
     def begin_display(self):
 
@@ -128,7 +135,3 @@ class Display:
         display_thread.setDaemon(False)
         display_thread.start()
 
-
-d = Display('__G__L__')
-d.begin_display()
-d.run_solution('0101')

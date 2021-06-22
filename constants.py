@@ -16,7 +16,9 @@ class Consts:
     BLOCK_COLOR = 32, 32, 32
     SKY_COLOR = 0, 132, 255
     GOOMBA_IMAGE = './images/goomba.png'
+    GOOMBA_PRESSED_IMAGE = './images/goomba_pressed.png'
     MARIO_IMAGE = './images/mario.png'
+    MARIO_SIT_IMAGE = './images/mario_sit.png'
     LAKITU_IMAGE = './images/lakitu.png'
     MUSHROOM_IMAGE = './images/mushroom.png'
     FLAG_IMAGE = './images/flag.png'
